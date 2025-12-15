@@ -6,9 +6,9 @@ Servo elbow;
 Servo shoulder;
 
 // --- Positions ---
-int stableBase     = 85;   // normal tucked base
-int preBaseOdd     = 110;  // extra one-step base for odd-finger case
-int userBase       = 180;  // rotate to this to "show" to user
+int stableBase     = 85;
+int preBaseOdd     = 110;
+int userBase       = 180;
 
 int stableShoulder = 10;
 int stableElbow    = 78;
@@ -21,11 +21,10 @@ int pickGripper    = 130;
 int liftShoulder   = 20;
 int liftElbow      = 65;
 
-// extra lift tuning (visible lift mainly by elbow)
-int extraElbowLift = 22; // increase if you need more clearance
+int extraElbowLift = 22; 
 
 // runtime flags
-bool taskRequested = false; // set true when serial command arrives
+bool taskRequested = false; 
 int parity = 0;             // 0 = even, 1 = odd (from mediapipe python)
 
 void setup() {
@@ -51,7 +50,6 @@ void loop() {
   if (Serial.available() > 0) {
   char c = Serial.read();
 
-  // ignore newline / carriage return
   if (c == '\n' || c == '\r') return;
 
   if (c == '0' || c == '1') {
@@ -71,11 +69,9 @@ void loop() {
   }
 }
 
-// Main pick & place flow. parity==1 -> odd behavior with extra base step
 void runPickAndPlace(int parityFlag) {
-  // If odd parity: first ramp base 85 -> preBaseOdd
   if (parityFlag == 1) {
-    smoothMove(base, preBaseOdd, 40); // ramp up to 110
+    smoothMove(base, preBaseOdd, 40);
     delay(200);
   }
 
@@ -99,15 +95,13 @@ void runPickAndPlace(int parityFlag) {
 
   // 4) rotate to user (show)
   smoothMove(base, userBase, 50);
-  delay(5000); // show for 5 seconds
+  delay(5000);
 
   // 5) rotate back:
   if (parityFlag == 1) {
-    // odd: go back to preBaseOdd (110) first
     smoothMove(base, preBaseOdd, 50);
     delay(300);
   } else {
-    // even: go straight back to stableBase
     smoothMove(base, stableBase, 50);
     delay(300);
   }
@@ -130,22 +124,18 @@ void runPickAndPlace(int parityFlag) {
   smoothMove(shoulder, stableShoulder, 30);
   delay(200);
 
-  // Final step for odd parity: move preBaseOdd (110) -> stableBase (85) smoothly
   if (parityFlag == 1) {
     smoothMove(base, stableBase, 40);
     delay(200);
   } else {
-    // already at stableBase for even case
-    // ensure exact stableBase
     smoothMove(base, stableBase, 20);
   }
 }
 
 // smoothMove: moves servo from its current read() to end in 1-degree steps
 void smoothMove(Servo &motor, int end, int speed) {
-  int start = motor.read(); // current position (last write())
+  int start = motor.read(); 
   if (start < 0) {
-    // fallback: directly write
     motor.write(end);
     delay(20);
     return;
