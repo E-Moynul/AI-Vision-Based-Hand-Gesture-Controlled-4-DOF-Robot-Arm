@@ -1,6 +1,11 @@
-# AI-Powered Vision-Controlled Hand Gesture Robotic Arm (4-DOF)
+# AI-Vision-Based-Hand-Gesture-Controlled-4-DOF-Robot-Arm
 
-A real-time **computer vision–based robotic arm control system** that uses **hand gesture recognition** to control a **4-DOF robotic arm**.
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![MediaPipe](https://img.shields.io/badge/MediaPipe-Yes-brightgreen)](https://github.com/google/mediapipe)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-orange)](https://opencv.org/)
+[![Arduino](https://img.shields.io/badge/Arduino-Compatible-blueviolet)](https://www.arduino.cc/)
+
+**real time computer vision–based robotic arm control system** -> **hand gesture recognition** -> **4-DOF robot arm** .
 The system integrates **MediaPipe (Python)** for perception and **Arduino** for hardware control through a **robust serial communication pipeline** with proper state handling.
 
 ---
